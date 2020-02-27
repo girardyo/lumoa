@@ -12,6 +12,7 @@ public class Boss : MonoBehaviour
     public GameObject blizzard;
     public GameObject shadow;
     public GameObject plume;
+    public GameObject coneGlace;
     private GameObject plumeInstance;
     private Vector3 pos;
 
@@ -32,6 +33,8 @@ public class Boss : MonoBehaviour
         AttaqueStalagmite();
         if (Input.GetKey(KeyCode.X))
             AttaquePlume();
+        if (Input.GetKey(KeyCode.C))
+            AttaqueConeGlace();
     }
 
     void AttaqueBlizzard()
@@ -73,10 +76,15 @@ public class Boss : MonoBehaviour
 
         for(int i = 0; i<nombrePlume; i++)
         {
-            print(angleMinRotation + angleDegre * i);
-            plumeInstance = Instantiate(plume, new Vector3(transform.position.x, 0.077f, transform.position.z), transform.rotation);
+            plumeInstance = Instantiate(plume, new Vector3(transform.position.x, 2f
+                , transform.position.z), transform.rotation);
             plumeInstance.transform.rotation *= Quaternion.Euler(Vector3.up * (angleMinRotation + angleDegre * i));
             plumeInstance.GetComponent<Rigidbody>().AddForce(plumeInstance.transform.forward * 300);
         }
+    }
+
+    void AttaqueConeGlace()
+    {
+        Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
     }
 }
