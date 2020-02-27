@@ -5,12 +5,14 @@ using UnityEngine;
 public class LifeManager : MonoBehaviour
 {
 
+
     #region Callable
 
     public static void UpdateLife(int amount, LifeInfo lifeinfo)
     {
         UpdateCurrentLifeOrchestration(amount, lifeinfo);
     }
+
     #endregion
 
 
