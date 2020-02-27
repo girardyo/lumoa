@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+
+    private float timeLife = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("LaserSpawn", 2,4);
-        InvokeRepeating("LaserDespawn", 4,4);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-    void LaserSpawn()
-    {
-        GetComponent<MeshRenderer>().enabled = true;
-        GetComponent<CapsuleCollider>().enabled = true;
-    }
-    void LaserDespawn()
+        if (timeLife < 0.5f)
         {
-            GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<CapsuleCollider>().enabled = false;
+            timeLife = timeLife + Time.deltaTime;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            //Perte d'un point de vie au joueur
+            Debug.Log("Touche le joueur");
+        }
     }
 }

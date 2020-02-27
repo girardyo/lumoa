@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4569939340739531859}
   - component: {fileID: 4569939340739531860}
   m_Layer: 0
-  m_Name: Cone (1)
+  m_Name: ConeGlace
   m_TagString: Cone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e4d3e7356bcd7de469c761ce8a63292e, type: 2}
+  - {fileID: 2100000, guid: b49b90dad3e754c449b728fcb42b3eda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,6 +95,7 @@ MonoBehaviour:
   enter: 1
   stay: 1
   exit: 1
+  lifeTime: 0
 --- !u!64 &4569939340739531860
 MeshCollider:
   m_ObjectHideFlags: 0

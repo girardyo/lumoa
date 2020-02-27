@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Blizzard : MonoBehaviour
 {
-    public int sizeUpMax = 4;
-    public int lifeTimeMax = 5;
+    public int sizeUpMax = 12;
+    public int lifeTimeMax = 10;
     private float smooth = 0.3f;
     private float lifeTime = 0.0f;
     private bool playerInside = false;

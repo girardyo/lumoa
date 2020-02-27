@@ -93,5 +93,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeUpMax: 2
   lifeTimeMax: 3
-  stalactite: {fileID: 4125142626780311637, guid: 234413178302f4b499c0c35f347485b8,
+  stalactite: {fileID: 2074364495853956723, guid: a6f21040169790e4c93364f0046dd983,
     type: 3}

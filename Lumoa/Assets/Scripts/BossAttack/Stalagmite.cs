@@ -15,6 +15,6 @@ public class Stalagmite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * Time.deltaTime*moveSpeed);
+        transform.Translate(Vector3.down * Time.deltaTime*moveSpeed);
     }
 }

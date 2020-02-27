@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public int life = 10;
     public bool slip = false;
-    public float slipForce = 30f;
+    public float slipForce = 50f;
+    public bool knockback = false;
+    public float knockTimer = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -15,39 +17,69 @@ public class Player : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Knockback")
+        {
+            Debug.Log("touched");
+            var a = GameObject.FindGameObjectWithTag("Knockback").transform.position;
+            var b = GameObject.FindGameObjectWithTag("Player").transform.position;
+            var d = b - a;
+            GetComponent<Rigidbody>().AddForce(new Vector3(d.x, 0, d.z) * 800f);
+            knockback = true;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (knockback)
         {
-            transform.position += new Vector3(0.0f, 0.0f, moveSpeed * Time.deltaTime);
-            if (slip == true)
+            if (knockTimer < 0.4f)
             {
-                GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, moveSpeed * Time.deltaTime) * slipForce);
+                knockTimer = knockTimer + Time.deltaTime;
+            }
+            else
+            {
+                knockTimer = 0;
+                knockback = false;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             }
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        else
         {
-            transform.position += new Vector3(0.0f, 0.0f, -moveSpeed * Time.deltaTime);
-            if (slip == true)
+            if (Input.GetKey(KeyCode.UpArrow))
             {
-                GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, -moveSpeed * Time.deltaTime) * slipForce);
+                transform.position += new Vector3(0.0f, 0.0f, moveSpeed * Time.deltaTime);
+                if (slip == true)
+                {
+                    GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, moveSpeed * Time.deltaTime) * slipForce);
+                }
             }
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0.0f, 0.0f);
-            if (slip == true)
+            if (Input.GetKey(KeyCode.DownArrow))
             {
-                GetComponent<Rigidbody>().AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0.0f, 0.0f) * slipForce);
+                transform.position += new Vector3(0.0f, 0.0f, -moveSpeed * Time.deltaTime);
+                if (slip == true)
+                {
+                    GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, -moveSpeed * Time.deltaTime) * slipForce);
+                }
             }
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.position += new Vector3(moveSpeed * Time.deltaTime, 0.0f, 0.0f);
-            if (slip == true)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                GetComponent<Rigidbody>().AddForce(new Vector3(moveSpeed * Time.deltaTime, 0.0f, 0.0f) * slipForce);
+                transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0.0f, 0.0f);
+                if (slip == true)
+                {
+                    GetComponent<Rigidbody>().AddForce(new Vector3(-moveSpeed * Time.deltaTime, 0.0f, 0.0f) * slipForce);
+                }
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                transform.position += new Vector3(moveSpeed * Time.deltaTime, 0.0f, 0.0f);
+                if (slip == true)
+                {
+                    GetComponent<Rigidbody>().AddForce(new Vector3(moveSpeed * Time.deltaTime, 0.0f, 0.0f) * slipForce);
+                }
             }
         }
     }
