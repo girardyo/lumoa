@@ -41,10 +41,15 @@ public class Menu : MonoBehaviour
 
     public void Pause()
     {
+        Debug.Log("game paused");
         if (IsGameEnded)
+        {
+            Debug.Log("show end menu");
             endMenuUI.SetActive(true);
+        }  
         else
         {
+            Debug.Log("show pause menu");
             pauseMenuUI.SetActive(true);
             IsGamePaused = true;
         }
