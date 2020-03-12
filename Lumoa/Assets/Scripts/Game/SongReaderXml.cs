@@ -48,26 +48,23 @@ public class SongReaderXml : MonoBehaviour
             T += Time.deltaTime;
             if (listTimecode.Count >= 1 && T > listTimecode[0])
             {
-<<<<<<< HEAD:Lumoa/Assets/Scripts/SongReaderXml.cs
                 listInput.RemoveAt(0);
                 listTimecode.RemoveAt(0);
             }
             else if (!audioData.isPlaying)
             {
-                melody = false;
-                T = 0;
-=======
-                //TODO envoie touche
-                Debug.Log(listInputTemp[0]);
-                listInputTemp.RemoveAt(0);
-                listTimecodeTemp.RemoveAt(0);
+                //melody = false;
+                //T = 0;
+                ////TODO envoie touche
+                //Debug.Log(listInputTemp[0]);
+                //listInputTemp.RemoveAt(0);
+                //listTimecodeTemp.RemoveAt(0);
 
-                if(listInputTemp.Count == 0)
-                {
-                    melody = false;
-                    T = 0;
-                }
->>>>>>> Manager:Lumoa/Assets/Scripts/Game/SongReaderXml.cs
+                //if(listInputTemp.Count == 0)
+                //{
+                //    melody = false;
+                //    T = 0;
+                //}
             }
         }
     }
