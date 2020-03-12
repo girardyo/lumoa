@@ -4,27 +4,18 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    //"IA" Attaques
     public float timerAttaque = 0.0f;
 
-    //Blizzard
     public float lifeTimeBlizzard = 0.0f;
 
-    //Cone de glace
     public float lifeTimeConeGlace = 0.0f;
 
-    //Stalactite
     public float timerBetweenStala = 0.0f;
     public float StalaLifeTime = 0.0f;
     private bool StalaAttack = false;
 
-    //Plume/rochers
     public int nombrePlume = 3;
     public int anglePlume = 40;
-
-    //RageMode
-    public bool rageModeOn = false;
-    public float angle = 50f;
 
     private GameObject joueur;
     public GameObject blizzard;
@@ -34,6 +25,11 @@ public class Boss : MonoBehaviour
     private GameObject plumeInstance;
     public GameObject laser;
     private Vector3 pos;
+    public GameObject stalagmite;
+    public Animator animator;
+
+    public List<AudioSource> audioSources;
+
 
     // Start is called before the first frame update
     void Start()
@@ -54,14 +50,14 @@ public class Boss : MonoBehaviour
         {
             AttaqueStalagmite();
         }
-        if (timerAttaque < 2f)
+        if (timerAttaque < 5f)
         {
             timerAttaque = timerAttaque + Time.deltaTime;
         }
         else
         {
             timerAttaque = 0;
-            switch (Random.Range(1, 6))
+            switch (Random.Range(1, 7))
             {
                 case 1:
                     if (lifeTimeBlizzard >= 10f)
@@ -76,11 +72,14 @@ public class Boss : MonoBehaviour
                     }
                     break;
                 case 2:
+                    AnimManager.LaunchAnim(animator, "AttaqueMainSol");
                     if (!StalaAttack)
                     {
                         StalaAttack = true;
                         Debug.Log("Attaque 2");
-                    } else {
+                    }
+                    else
+                    {
                         AttaquePlume();
                     }
                     break;
@@ -94,7 +93,9 @@ public class Boss : MonoBehaviour
                         AttaqueConeGlace();
                         lifeTimeConeGlace = 0;
                         Debug.Log("Attaque 4");
-                    } else {
+                    }
+                    else
+                    {
                         AttaquePlume();
                     }
                     break;
@@ -102,8 +103,14 @@ public class Boss : MonoBehaviour
                     AttaqueLaser();
                     Debug.Log("Attaque 5");
                     break;
+
+                case 6:
+                    StartCoroutine("AttaqueStalactite");
+                    Debug.Log("Attaque 6");
+                    break;
+
             }
-        }            
+        }
     }
 
     void AttaqueBlizzard()
@@ -117,6 +124,7 @@ public class Boss : MonoBehaviour
 
     void AttaqueStalagmite()
     {
+
         if (StalaLifeTime < 15)
         {
             StalaLifeTime = StalaLifeTime + Time.deltaTime;
@@ -141,10 +149,29 @@ public class Boss : MonoBehaviour
 
     void AttaquePlume()
     {
-        var angleDegre = (anglePlume / (nombrePlume-1));
-        var angleMinRotation = -angleDegre*((nombrePlume - 1)/2);
+        StartCoroutine("Plume");
 
-        for(int i = 0; i<nombrePlume; i++)
+    }
+
+    void AttaqueConeGlace()
+    {
+
+        Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+    }
+
+    void AttaqueLaser()
+    {
+        StartCoroutine("Laser");
+    }
+
+    public IEnumerator Plume()
+    {
+        AnimManager.LaunchAnim(animator, "LanceRoche");
+        yield return new WaitForSeconds(1.55f);
+        var angleDegre = (anglePlume / (nombrePlume - 1));
+        var angleMinRotation = -angleDegre * ((nombrePlume - 1) / 2);
+
+        for (int i = 0; i < nombrePlume; i++)
         {
             plumeInstance = Instantiate(plume, new Vector3(transform.position.x, 2f
                 , transform.position.z), transform.rotation);
@@ -152,14 +179,25 @@ public class Boss : MonoBehaviour
             plumeInstance.GetComponent<Rigidbody>().AddForce(plumeInstance.transform.forward * 500);
         }
     }
-
-    void AttaqueConeGlace()
+    public IEnumerator Laser()
     {
-        Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
-    }
-
-    void AttaqueLaser()
-    {
+        AnimManager.LaunchAnim(animator, "Laser");
+        yield return new WaitForSeconds(1.55f);
         Instantiate(laser, new Vector3(transform.position.x, 0, transform.position.z), transform.rotation);
+
+    }
+    public IEnumerator AttaqueStalactite()
+    {
+        AnimManager.LaunchAnim(animator, "Stalagmite");
+
+        var bossPosition = transform.forward;
+        for (float i = 0f; i < 35f; i = i + 2f)
+        {
+            yield return new WaitForSeconds(0.1f);
+            Instantiate(stalagmite, bossPosition * i, transform.rotation);
+        }
     }
 }
+
+
+
