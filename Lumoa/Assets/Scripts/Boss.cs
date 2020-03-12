@@ -35,6 +35,12 @@ public class Boss : MonoBehaviour
     public GameObject laser;
     private Vector3 pos;
 
+
+    public Animator animator;
+
+    public List<Animation> animations;
+    public List<AudioSource> audioSources;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -112,7 +118,7 @@ public class Boss : MonoBehaviour
         {
             pos = new Vector3(Random.Range(joueur.transform.position.x - 3f, joueur.transform.position.x + 3f), 0.077f, Random.Range(joueur.transform.position.z - 3f, joueur.transform.position.z + 3f));
         } while (Vector3.Distance(pos, joueur.transform.position) < 1f && Vector3.Distance(pos, transform.position) < 3f);
-        Instantiate(blizzard, pos, Quaternion.identity);
+        AttackManager.LaunchAttackObjWithoutAnim(blizzard, pos, audioSources[0]);
     }
 
     void AttaqueStalagmite()
@@ -129,7 +135,9 @@ public class Boss : MonoBehaviour
                 timerBetweenStala = 0;
                 float x = Random.Range(-20.0f, 20.0f);
                 float z = Random.Range(-20.0f, 20.0f);
-                Instantiate(shadow, new Vector3(x, 0.077f, z), Quaternion.identity);
+                Vector3 pos = new Vector3(x, 0.077f, z);
+                AttackManager.LaunchAttackObj(shadow, pos, animator, "Mainsol" , audioSources[1]);
+                //Instantiate(shadow, new Vector3(x, 0.077f, z), Quaternion.identity);
             }
         }
         else
@@ -145,21 +153,28 @@ public class Boss : MonoBehaviour
         var angleMinRotation = -angleDegre*((nombrePlume - 1)/2);
 
         for(int i = 0; i<nombrePlume; i++)
-        {
+        {/*
             plumeInstance = Instantiate(plume, new Vector3(transform.position.x, 2f
                 , transform.position.z), transform.rotation);
             plumeInstance.transform.rotation *= Quaternion.Euler(Vector3.up * (angleMinRotation + angleDegre * i));
-            plumeInstance.GetComponent<Rigidbody>().AddForce(plumeInstance.transform.forward * 500);
+            plumeInstance.GetComponent<Rigidbody>().AddForce(plumeInstance.transform.forward * 500);*/
+
+            AttackManager.LaunchAttackDistRota(plumeInstance, 500, new Vector3(transform.position.x, 2f
+                , transform.position.z), transform.rotation, animator, "Mainplume", audioSources[2]);
         }
     }
 
     void AttaqueConeGlace()
     {
-        Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+        AttackManager.LaunchAttackObjWithoutAnim(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), audioSources[2]);
+
+        //Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+
     }
 
     void AttaqueLaser()
     {
-        Instantiate(laser, new Vector3(transform.position.x, 0, transform.position.z), transform.rotation);
+        AttackManager.LaunchAttackObj(laser, new Vector3(transform.position.x, 0, transform.position.z), animator, "laser", audioSources[3]);
+        //Instantiate(laser, new Vector3(transform.position.x, 0, transform.position.z), transform.rotation);
     }
 }

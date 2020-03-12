@@ -13,6 +13,10 @@ public class AttackManager : MonoBehaviour
     }
 
 
+    //TODO
+    //Instance avec gameobject / position/  rotation
+    //Instance avec gameobject / position / rotation / force
+
 
     #region Callable
 
@@ -25,6 +29,24 @@ public class AttackManager : MonoBehaviour
     {
         LaunchAttackDistOrchestration(Proj, Force, Spawn, animator, animName, audio);
     }
+
+    public static void LaunchAttackObj(GameObject Proj, Transform Spawn, Animator animator, string animName, AudioSource audio)
+    {
+        LaunchAttackObjtOrchestration(Proj, Spawn, animator, animName, audio);
+    }
+
+
+    public static void LaunchAttackObjWithoutAnim(GameObject Proj, Vector3 Spawn, AudioSource audio)
+    {
+        LaunchAttackObjtOrchestrationWithoutAnim(Proj, Spawn, audio);
+    }
+
+
+    public static void LaunchAttackDistRota(GameObject Proj, float Force, Transform Spawn, Quaternion Rota, Animator animator, string animName, AudioSource audio)
+    {
+        LaunchAttackDistRotaOrchestration(Proj, Force, Spawn, Rota, animator, animName, audio);
+    }
+
 
     #endregion
 
@@ -42,13 +64,42 @@ public class AttackManager : MonoBehaviour
         DeactivateColliderTools(weapon);
     }
 
-    private static void LaunchAttackDistOrchestration(GameObject Proj, float Force, Transform Spawn, Animator animator, string animName, AudioSource audio)
+    private static void LaunchAttackDistOrchestration(GameObject Proj, float Force, Vector3 Spawn, Animator animator, string animName, AudioSource audio)
     {
         AnimManager.LaunchAnim(animator, animName);
 
         SoundManager.LaunchAudio(audio);
 
-        LaunchProj(Proj, Force, Spawn);
+        LaunchProjForce(Proj, Force, Spawn);
+
+    }
+
+    private static void LaunchAttackObjtOrchestration(GameObject Proj, Vector3 Spawn, Animator animator, string animName, AudioSource audio)
+    {
+        AnimManager.LaunchAnim(animator, animName);
+
+        SoundManager.LaunchAudio(audio);
+
+        LaunchProj(Proj, Spawn);
+
+    }
+
+    private static void LaunchAttackObjtOrchestrationWithoutAnim(GameObject Proj, Vector3 Spawn, AudioSource audio)
+    {
+
+        SoundManager.LaunchAudio(audio);
+
+        LaunchProj(Proj, Spawn);
+
+    }
+
+    private static void LaunchAttackDistRotaOrchestration(GameObject Proj, float Force, Vector3 Spawn, Quaternion Rota, Animator animator, string animName, AudioSource audio)
+    {
+        AnimManager.LaunchAnim(animator, animName);
+
+        SoundManager.LaunchAudio(audio);
+
+        LaunchProjRota(Proj, Force, Spawn, Rota);
 
     }
 
@@ -69,11 +120,25 @@ public class AttackManager : MonoBehaviour
         weapon.enabled = false;
     }
 
-    private static void LaunchProj(GameObject Proj, float Force, Transform Spawn)
+    private static void LaunchProjForce(GameObject Proj, float Force, Vector3 Spawn)
     {
         Instantiate(Proj);
-        Proj.transform.position = Spawn.position;
+        Proj.transform.position = Spawn;
         Proj.GetComponent<Rigidbody>().AddForce(Vector3.forward*Force);
+    }
+
+    private static void LaunchProj(GameObject Proj, Vector3 Spawn)
+    {
+        Instantiate(Proj);
+        Proj.transform.position = Spawn;
+    }
+
+    private static void LaunchProjRota(GameObject Proj, float Force, Vector3 Spawn, Quaternion Rota)
+    {
+        Instantiate(Proj);
+        Proj.transform.position = Spawn;
+        Proj.transform.rotation = Rota;
+        Proj.GetComponent<Rigidbody>().AddForce(Vector3.forward * Force);
     }
 
     private static IEnumerator WaitforAnimtoEnd(Animator animator)
@@ -86,3 +151,6 @@ public class AttackManager : MonoBehaviour
 
 
 }
+//TODO
+//Instance avec gameobject / position/  rotation
+//Instance avec gameobject / position / rotation / force
