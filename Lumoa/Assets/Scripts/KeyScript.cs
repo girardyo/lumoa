@@ -4,26 +4,32 @@ using System.Collections;
 
 public class KeyScript : MonoBehaviour
 {
-    public float RotationSmooth = 5f;
     public bool IsKeyMissed = false;
-    private float speed;
-    private float fadingSpeed;
-    private float width;
-    public float xMultiplier;
+    public float songPosition;
+    public float offsetY;
 
+    private float speed;
+    private float width;
+
+    private float rotationSmooth;
+    private float fallingSmooth;
     private Image image;
-    private Vector3 offset;
+    private float fadingSpeed;
 
     // Use this for initialization
     void Start()
     {
-        speed = 5.055f;
-        fadingSpeed = 1.5f;
-        width = GetComponent<RectTransform>().sizeDelta.x;
-        image = GetComponent<Image>();
-        offset = new Vector3(Center, 0, 0);
-        transform.localPosition = offset * xMultiplier * 1.25f;
         tag = "Scrolling";
+
+        transform.localPosition = new Vector3(CheckPosition.x * songPosition / 5, offsetY, 0);
+        speed = DistanceBetween(transform.position) / songPosition;
+        Debug.Log(DistanceBetween(transform.position));
+        width = GetComponent<RectTransform>().sizeDelta.x * GetComponent<RectTransform>().lossyScale.x;
+
+        rotationSmooth = 1.5f;
+        fallingSmooth = 0.25f;
+        image = GetComponent<Image>();
+        fadingSpeed = 3f;
     }
 
     // Update is called once per frame
@@ -33,34 +39,40 @@ public class KeyScript : MonoBehaviour
         {
             Scroll();
         }
-        else if(CompareTag("Success"))
+        else if (CompareTag("Success"))
         {
-            Fade();
+            Rise();
         }
         else if (CompareTag("Miss"))
         {
             Fall();
         }
     }
-    
-    private float Center
+
+    private Vector3 CheckPosition
     {
-        get => transform.parent.GetComponentInParent<RectTransform>().sizeDelta.x / 2;
+        get => transform.parent.Find("Check").position;
+    }
+
+    private float DistanceBetween(Vector3 key)
+    {
+        return Mathf.Sqrt(Mathf.Pow((key.x - CheckPosition.x), 2f));
     }
 
     void Scroll()
     {
-        transform.position += Vector3.left * speed * width * Time.deltaTime;
-        if (!IsKeyMissed && transform.position.x < Center - width)
+        if (IsKeyMissed)
+        {
+            tag = "Miss";
+        }
+
+        transform.Translate(Vector3.left * speed * Time.deltaTime);
+
+        if (!IsKeyMissed && transform.position.x < CheckPosition.x - width / 2)
         {
             Debug.Log("Missed key");
             KeyCheckScript.keys.Remove(gameObject);
             IsKeyMissed = true;
-        }
-
-        if (IsKeyMissed && transform.position.x < Center - width / 2 + 25)
-        {
-            tag = "Miss";
         }
     }
 
@@ -75,8 +87,16 @@ public class KeyScript : MonoBehaviour
     void Fall()
     {
         //Rotate, fall and fade
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 90), Time.deltaTime * RotationSmooth);
-        transform.position = Vector3.Lerp(transform.position, new Vector3(Center - width, -200, Mathf.Sin(transform.rotation.eulerAngles.z)), Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 90), Time.deltaTime * rotationSmooth);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(CheckPosition.x, -200, Mathf.Sin(transform.rotation.eulerAngles.z)), Time.deltaTime * fallingSmooth);
+        Fade();
+    }
+
+    void Rise()
+    {
+        //Rotate, rise and fade
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 90), Time.deltaTime * rotationSmooth);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(CheckPosition.x, 200, Mathf.Sin(transform.rotation.eulerAngles.z)), Time.deltaTime * fallingSmooth);
         Fade();
     }
 }

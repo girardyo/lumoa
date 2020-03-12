@@ -11,18 +11,18 @@ public class SpellController : MonoBehaviour
     public float speed;
 
     public static List<GameObject> listSpells = new List<GameObject>();
-    public static bool IsSpellReady = true;
+    public static bool IsSpellReady = false;
 
 
     // Use this for initialization
     void Start()
-    {   
-        
+    {
+
     }
 
     // Update is called once per frame
     void Update()
-    {   
+    {
         //rigibody.velocity = direction * speed;
         if (Input.GetKeyDown(KeyCode.R) && IsSpellReady)
         {
@@ -38,9 +38,9 @@ public class SpellController : MonoBehaviour
         for (int i = 0; i < listSpells.Count; i++)
         {
             listSpells[i].GetComponent<SpellScript>().Rigibody.velocity = listSpells[i].GetComponent<SpellScript>().Direction * speed;
-        }   
+        }
     }
-   
+
 
     void CreateSpell(Vector3 src, Vector3 target)
     {
