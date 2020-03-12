@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    //"IA" Attaques
     public float timerAttaque = 0.0f;
 
+    //Blizzard
     public float lifeTimeBlizzard = 0.0f;
 
+    //Cone de glace
     public float lifeTimeConeGlace = 0.0f;
 
+    //Stalactite
     public float timerBetweenStala = 0.0f;
     public float StalaLifeTime = 0.0f;
     private bool StalaAttack = false;
 
+    //Plume/rochers
     public int nombrePlume = 3;
     public int anglePlume = 40;
+
+    //RageMode
+    public bool rageModeOn = false;
+    public float angle = 50f;
 
     private GameObject joueur;
     public GameObject blizzard;

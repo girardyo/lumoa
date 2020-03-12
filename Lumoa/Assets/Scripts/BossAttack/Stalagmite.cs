@@ -16,5 +16,6 @@ public class Stalagmite : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime*moveSpeed);
+        Destroy(gameObject,5f);
     }
 }
