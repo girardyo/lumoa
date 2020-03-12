@@ -39,7 +39,7 @@ public class SongReaderXml : MonoBehaviour
             T += Time.deltaTime;
             if (T > float.Parse(listTimecodeTemp[0]))
             {
-
+                //TODO envoie touche
                 Debug.Log(listInputTemp[0]);
                 listInputTemp.RemoveAt(0);
                 listTimecodeTemp.RemoveAt(0);
