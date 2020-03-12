@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    <songconfig>
+        <add num="0" timecode="0.345" input="rectangle"/>
+        <add num="1" timecode="1.135" input="circle"/>
+        <add num="2" timecode="2.05" input="triangle"/>
+        <add num="3" timecode="3.5" input="cross"/>
+        <add num="4" timecode="3.7" input="rectangle"/>
+        <add num="5" timecode="3.9" input="circle"/>
+        <add num="6" timecode="4.6" input="rectangle"/>
+        <add num="7" timecode="5.4" input="triangle"/>
+    </songconfig>
+</configuration>
