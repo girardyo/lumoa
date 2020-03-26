@@ -14,6 +14,10 @@ public class Blizzard : MonoBehaviour
     void Start()
     {
         tailleInitial = transform.localScale;
+        if (BossMode.Instance.rageMode)
+        {
+            smooth = 1f;
+        }
     }
 
     void Update()

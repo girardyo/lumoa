@@ -5,6 +5,7 @@ using UnityEngine;
 public class Boss : MonoBehaviour
 {
     public float timerAttaque = 0.0f;
+    public float timerAttaqueMax = 5f;
 
     public float lifeTimeBlizzard = 0.0f;
 
@@ -28,6 +29,15 @@ public class Boss : MonoBehaviour
     public GameObject stalagmite;
     public Animator animator;
 
+    public int rageOnNombrePlume = 5;
+    public int rageOnAnglePlume = 50;
+    public int rageOffNombrePlume = 3;
+    public int rageOffAnglePlume = 40;
+    public float rageOffTimerAttack = 5f;
+    public float rageOnTimerAttack = 2f;
+
+
+
     public List<AudioSource> audioSources;
 
 
@@ -43,6 +53,27 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (BossMode.Instance.rageMode)
+            {
+                BossMode.Instance.rageMode = false;
+                nombrePlume = rageOffNombrePlume;
+                anglePlume = rageOffAnglePlume;
+                StalaAttack = false;
+                timerAttaqueMax = rageOffTimerAttack;
+                Debug.Log("ragemode = "+ BossMode.Instance.rageMode);
+            }
+            else
+            {
+                BossMode.Instance.rageMode = true;
+                nombrePlume = rageOnNombrePlume;
+                anglePlume = rageOnAnglePlume;
+                StalaAttack = true;
+                timerAttaqueMax = rageOnTimerAttack;
+                Debug.Log("ragemode = " + BossMode.Instance.rageMode);
+            }
+        }
         transform.LookAt(new Vector3(joueur.transform.position.x, transform.position.y, joueur.transform.position.z));
         lifeTimeBlizzard = lifeTimeBlizzard + Time.deltaTime;
         lifeTimeConeGlace = lifeTimeConeGlace + Time.deltaTime;
@@ -50,7 +81,7 @@ public class Boss : MonoBehaviour
         {
             AttaqueStalagmite();
         }
-        if (timerAttaque < 5f)
+        if (timerAttaque < timerAttaqueMax)
         {
             timerAttaque = timerAttaque + Time.deltaTime;
         }
@@ -125,7 +156,7 @@ public class Boss : MonoBehaviour
     void AttaqueStalagmite()
     {
 
-        if (StalaLifeTime < 15)
+        if (BossMode.Instance.rageMode || StalaLifeTime < 15)
         {
             StalaLifeTime = StalaLifeTime + Time.deltaTime;
             if (timerBetweenStala < 1)
@@ -157,6 +188,15 @@ public class Boss : MonoBehaviour
     {
 
         Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+        if (BossMode.Instance.rageMode)
+        {
+            GameObject coneInstance = Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+            coneInstance.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
+            coneInstance = Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+            coneInstance.transform.rotation *= Quaternion.Euler(Vector3.up * 180);
+            coneInstance = Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+            coneInstance.transform.rotation *= Quaternion.Euler(Vector3.up * 270);
+        }
     }
 
     void AttaqueLaser()
@@ -183,7 +223,8 @@ public class Boss : MonoBehaviour
     {
         AnimManager.LaunchAnim(animator, "Laser");
         yield return new WaitForSeconds(1.55f);
-        Instantiate(laser, new Vector3(transform.position.x, 0, transform.position.z), transform.rotation);
+        Debug.Log("laser :" + transform.forward.x);
+        Instantiate(laser, new Vector3(transform.position.x+(transform.forward.x*5), 0, transform.position.z + (transform.forward.z*5)), transform.rotation);
 
     }
     public IEnumerator AttaqueStalactite()

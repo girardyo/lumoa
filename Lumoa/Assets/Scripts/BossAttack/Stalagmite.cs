@@ -5,7 +5,8 @@ using UnityEngine;
 public class Stalagmite : MonoBehaviour
 {
     public int moveSpeed = 50;
-
+    private float lifeTime = 0f;
+    public float lifeTimeMax = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +17,13 @@ public class Stalagmite : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * Time.deltaTime*moveSpeed);
+        if (lifeTime < lifeTimeMax)
+        {
+            lifeTime = lifeTime + Time.deltaTime;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

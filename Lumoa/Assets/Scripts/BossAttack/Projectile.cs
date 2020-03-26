@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    Transform target;
-    public float moveSpeed;
+    private float lifeTime = 0f;
+    public float lifeTimeMax = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +16,14 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+        if (lifeTime < lifeTimeMax)
+        {
+            lifeTime = lifeTime + Time.deltaTime;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
 
