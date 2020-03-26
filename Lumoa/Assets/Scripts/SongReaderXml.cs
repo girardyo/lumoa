@@ -33,7 +33,7 @@ public class SongReaderXml : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !melody && !SpellController.IsSpellReady)
+        if (Input.GetKeyDown(KeyCode.E) && !melody && !SpellController.IsSpellReady || Input.GetKeyDown(KeyCode.JoystickButton5) && !melody && !SpellController.IsSpellReady || Input.GetKeyDown(KeyCode.JoystickButton7) && !melody && !SpellController.IsSpellReady)
         {
             Debug.Log("start melody");
             audioData.Play(0);
@@ -47,7 +47,6 @@ public class SongReaderXml : MonoBehaviour
             T += Time.deltaTime;
             if (listTimecode.Count >= 1 && T > listTimecode[0])
             {
-<<<<<<< HEAD:Lumoa/Assets/Scripts/SongReaderXml.cs
                 listInput.RemoveAt(0);
                 listTimecode.RemoveAt(0);
             }
@@ -56,18 +55,6 @@ public class SongReaderXml : MonoBehaviour
                 melody = false;
                 Debug.Log("end of music");
                 T = 0;
-=======
-                //TODO envoie touche
-                Debug.Log(listInputTemp[0]);
-                listInputTemp.RemoveAt(0);
-                listTimecodeTemp.RemoveAt(0);
-
-                if(listInputTemp.Count == 0)
-                {
-                    melody = false;
-                    T = 0;
-                }
->>>>>>> Manager:Lumoa/Assets/Scripts/Game/SongReaderXml.cs
             }
         }
     }
@@ -132,7 +119,7 @@ public class SongReaderXml : MonoBehaviour
         lGo.GetComponent<KeyScript>().songPosition = pTimecode;
 
         lGo.GetComponent<KeyScript>().offsetY = lOffsetY;
-        lGo.transform.localScale /= 2.5f;  
+        lGo.transform.localScale /= 2.5f;
         KeyCheckScript.keys.Add(lGo);
     }
 }
