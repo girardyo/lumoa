@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Blizzard : MonoBehaviour
 {
-    public int sizeUpMax = 12;
+    public int sizeUpMaxXY = 600;
+    public int sizeUpMaxZ = 300;
     public int lifeTimeMax = 10;
     private float smooth = 0.3f;
     private float lifeTime = 0.0f;
@@ -22,7 +23,7 @@ public class Blizzard : MonoBehaviour
 
     void Update()
     {
-        Vector3 newScale = new Vector3(sizeUpMax, 0.001f, sizeUpMax); // Les dimensions souhaités
+        Vector3 newScale = new Vector3(sizeUpMaxXY, sizeUpMaxXY, sizeUpMaxZ); // Les dimensions souhaités
         transform.localScale = Vector3.Lerp(tailleInitial, newScale, lifeTime*smooth);
         if (lifeTime < lifeTimeMax)
         {
