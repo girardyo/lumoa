@@ -11,7 +11,7 @@ public class SpellController : MonoBehaviour
     public float speed;
 
     public static List<GameObject> listSpells = new List<GameObject>();
-    public static bool IsSpellReady = true;
+    public static bool IsSpellReady = false;
 
 
     // Use this for initialization

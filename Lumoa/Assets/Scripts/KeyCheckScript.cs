@@ -8,14 +8,18 @@ public class KeyCheckScript : MonoBehaviour
     public static List<GameObject> keys = new List<GameObject>();
     public static bool IsSpellReady = false;
     public static int CompletionCount;
-    public static int MaxCompletionCount;
+    public static int MaxCompletionCount = keys.Count;
 
     public float DistanceMax;
     public float CompletionValue;
 
+    public static bool endMelody = true;
+
+
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -23,15 +27,29 @@ public class KeyCheckScript : MonoBehaviour
     {
         if (keys.Count > 0)
         {
+            endMelody = false;
             VerifyKey(VerifyInput());
         }
         else if (transform.parent.childCount == 1)
         {
+            endMelody = true;
+
+            if (CompletionAverage >= 100 && endMelody)
+            {
+                ResetKeyCheckerTrue();
+            }
+
+            /*
             transform.parent.gameObject.SetActive(false);
 
             //if (CompletionAverage * 100 >= CompletionValue) SpellController.IsSpellReady = true;
 
-            CompletionCount = 0;
+            CompletionCount = 0;*/
+        }
+
+        if(CompletionAverage < 100 && endMelody)
+        {
+            ResetKeyChecker();
         }
     }
 
@@ -91,6 +109,16 @@ public class KeyCheckScript : MonoBehaviour
         SpellController.IsSpellReady = false;
         SongReaderXml.melody = false;
         keys.Clear();
+    }
+
+    public static void ResetKeyCheckerTrue()
+    {
+        Debug.Log("reset");
+        CompletionCount = 0;
+        SpellController.IsSpellReady = true;
+        SongReaderXml.melody = true;
+        keys.Clear();
+
     }
 
 }

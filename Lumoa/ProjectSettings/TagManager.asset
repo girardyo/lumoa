@@ -7,6 +7,10 @@ TagManager:
   - Cone
   - Laser
   - Knockback
+  - Stalagmite
+  - Scrolling
+  - Success
+  - Miss
   layers:
   - Default
   - TransparentFX
