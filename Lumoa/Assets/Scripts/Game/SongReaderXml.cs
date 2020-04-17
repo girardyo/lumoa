@@ -14,7 +14,7 @@ public class SongReaderXml : MonoBehaviour
     private float T;
 
     public GameObject projectile;
-    AudioSource audioData;
+    public AudioSource audioData;
 
     public Sprite circle;
     public Sprite triangle;

@@ -5,21 +5,17 @@ using UnityEngine.UI;
 
 public class KeyCheckScript : MonoBehaviour
 {
-    public float DistanceMax;
-    private Text completionText;
-    private Slider completionGauge;
-    public float CompletionValue;
-    public static int CompletionCount;
-    public static int MaxCompletionCount;
     public static List<GameObject> keys = new List<GameObject>();
     public static bool IsSpellReady = false;
+    public static int CompletionCount;
+    public static int MaxCompletionCount;
+
+    public float DistanceMax;
+    public float CompletionValue;
 
     // Start is called before the first frame update
     void Start()
     {
-        completionText = transform.GetChild(0).gameObject.GetComponent<Text>();
-        completionGauge = transform.GetChild(0).GetChild(0).gameObject.GetComponent<Slider>();
-        completionText.text = "0%";
     }
 
     // Update is called once per frame
@@ -33,11 +29,9 @@ public class KeyCheckScript : MonoBehaviour
         {
             transform.parent.gameObject.SetActive(false);
 
-            if (CompletionAverage * 100 >= CompletionValue) SpellController.IsSpellReady = true;
+            //if (CompletionAverage * 100 >= CompletionValue) SpellController.IsSpellReady = true;
 
             CompletionCount = 0;
-            completionGauge.value = 0;
-            completionText.text = CompletionAverage * 100 + "%";
         }
     }
 
@@ -49,32 +43,30 @@ public class KeyCheckScript : MonoBehaviour
     private string VerifyInput()
     {
         //RECTANGLE
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            return "rectangle";
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.JoystickButton0))
+            return "X";
         //CIRCLE
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-            return "circle";
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.JoystickButton2))
+            return "B";
         //TRIANGLE
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
-            return "triangle";
+        else if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.JoystickButton3))
+            return "Y";
         //CROSS
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-            return "cross";
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.JoystickButton1))
+            return "A";
         else
             return null;
     }
     private void VerifyKey(string playerInput)
     {
-        if (DistanceBetween(keys[0]) < DistanceMax && keys[0].name == playerInput)
+        if (DistanceBetween(keys[0]) < DistanceMax && keys[0].name == playerInput && !keys[0].GetComponent<KeyScript>().IsKeyMissed)
         {
             Debug.Log("Good input");
-            
+
             keys[0].tag = "Success";
             keys.Remove(keys[0]);
 
             CompletionCount++;
-            completionText.text = CompletionAverage * 100 + "%";
-            completionGauge.value = CompletionAverage;
         }
         else
         {
@@ -82,15 +74,14 @@ public class KeyCheckScript : MonoBehaviour
                 return;
 
             Debug.Log("Failed input");
-
-            keys[0].tag = "Miss";
+            keys[0].GetComponent<KeyScript>().IsKeyMissed = true;
             keys.Remove(keys[0]);
         }
     }
 
     private float CompletionAverage
     {
-        get => (float) CompletionCount / MaxCompletionCount;
+        get => (float)CompletionCount / MaxCompletionCount;
     }
 
     public static void ResetKeyChecker()
