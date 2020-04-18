@@ -14,7 +14,7 @@ public class SongReaderXml : MonoBehaviour
     private float T;
 
     public GameObject projectile;
-    AudioSource audioData;
+    public AudioSource audioData;
 
     public Sprite circle;
     public Sprite triangle;
@@ -34,7 +34,7 @@ public class SongReaderXml : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !melody && !SpellController.IsSpellReady)
+        if (Input.GetKeyDown(KeyCode.E) && !melody && !SpellController.IsSpellReady || Input.GetKeyDown(KeyCode.JoystickButton5) && !melody && !SpellController.IsSpellReady)
         {
             Debug.Log("start melody");
             audioData.Play(0);

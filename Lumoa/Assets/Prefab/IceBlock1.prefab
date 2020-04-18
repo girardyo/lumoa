@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 6183288013904919322}
   - component: {fileID: 2924090766335967532}
   - component: {fileID: 8910649371171716565}
+  - component: {fileID: 2559091670769791453}
+  - component: {fileID: 4159979344773218015}
   m_Layer: 0
   m_Name: IceBlock1
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7175406735747533065}
-  m_LocalRotation: {x: -0.5054151, y: -0.2846772, z: 0.7316771, w: 0.3579987}
-  m_LocalPosition: {x: 0.9319386, y: -0.20181388, z: -35.434547}
+  m_LocalRotation: {x: 0.33847353, y: -0.7569465, z: 0.00042452785, w: 0.5589879}
+  m_LocalPosition: {x: 0.9269576, y: -0.21056294, z: -35.42156}
   m_LocalScale: {x: 119.34153, y: 119.34153, z: 119.34153}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 3.1360002, y: -70.882, z: 125.62401}
+  m_LocalEulerAnglesHint: {x: 22.275002, y: -113.911, z: -33.588}
 --- !u!33 &2924090766335967532
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -78,3 +80,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2559091670769791453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175406735747533065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c158a8694598748a443e0d66a278ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 30
+  lifeTimeMax: 3
+--- !u!65 &4159979344773218015
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7175406735747533065}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.027903778, y: 0.03146232, z: 0.03048194}
+  m_Center: {x: 0.00013102607, y: -0.0051264977, z: 0.0001469771}

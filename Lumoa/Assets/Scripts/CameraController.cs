@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
 
     //"Vitesse" de déplacement de la caméra [0, 1]
     public float smoothSpeed;
-    
+
     //Position de base de la caméra
     public Vector3 offset;
 
@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
     private void FixedUpdate()
     {
         distance = Vector3.Distance(targetPlayer.position, new Vector3(0, 0, 0));
-        
+
         if (distance > border)
         {
             /*

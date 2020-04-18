@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adea0ed2b0122442885d7d89141dd10d, type: 3}
   m_Name: LifePlayer
   m_EditorClassIdentifier: 
-  MaxLife: 250
+  MaxLife: 10

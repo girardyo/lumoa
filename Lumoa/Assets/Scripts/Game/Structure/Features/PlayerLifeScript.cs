@@ -6,12 +6,34 @@ using UnityEngine.UI;
 public class PlayerLifeScript : LifeInfo
 {
     private bool isPlayerDead=false;
+    public RectTransform rectTransform;
+
+
+    private void Start()
+    {
+        MaxLife = LifeDataInfo.MaxLife;
+        CurrentLife = MaxLife;
+        rectTransform.localScale = new Vector3((float)CurrentLife / 10f, 1f, 1f);
+    }
+
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A)){
-            LifeManager.UpdateLife(-50, this);
+
+        
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Damage")
+        {
+            LifeManager.UpdateLife(-1, this);
             Debug.Log("Current life" + CurrentLife);
+            rectTransform.localScale = new Vector3((float)CurrentLife / 10f, 1f, 1f);
+
+            if (CurrentLife == 0)
+                Death();
         }
     }
 

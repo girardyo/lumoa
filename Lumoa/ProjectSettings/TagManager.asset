@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Cone
+  - Laser
+  - Knockback
+  - Stalagmite
+  - Scrolling
+  - Success
+  - Miss
+  - Damage
+  - Boss
   layers:
   - Default
   - TransparentFX
