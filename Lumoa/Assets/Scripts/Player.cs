@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     private bool canIDash = true;
     public float speedRotation;
 
+    public GameObject Proj;
+    public Transform projPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -128,6 +131,14 @@ public class Player : MonoBehaviour
                 AnimManager.LaunchAnim(animator, "Idle_breathing");
             }
 
+            if (Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.E) && SpellController.IsSpellReady)
+            {
+                GameObject proj = Instantiate(Proj);
+                proj.transform.position = projPos.position;
+          
+
+
+            }
             if (Input.GetKeyDown(KeyCode.JoystickButton4) || Input.GetKeyDown(KeyCode.JoystickButton6) || Input.GetKeyDown(KeyCode.LeftShift))
             {
 

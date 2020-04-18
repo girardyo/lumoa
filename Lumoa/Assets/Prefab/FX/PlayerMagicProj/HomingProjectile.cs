@@ -5,9 +5,9 @@ using UnityEngine;
 public class HomingProjectile : MonoBehaviour
 {
 
-    public Transform targetTransform;
+    private Transform targetTransform;
     public float speed = 1;
-    public float distanceMinToHit = 2;
+    public float distanceMinToHit = 1;
 
     [SerializeField]
     private GameObject bigFlare;
@@ -18,7 +18,15 @@ public class HomingProjectile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetTransform = GameObject.FindGameObjectWithTag("Boss").GetComponent<Transform>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Boss")
+        {
+            LifeManager.UpdateLife(-1, other.GetComponent<LifeInfo>());
+        }
     }
 
     // Update is called once per frame

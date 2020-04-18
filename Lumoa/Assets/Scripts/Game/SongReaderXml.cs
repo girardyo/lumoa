@@ -34,7 +34,7 @@ public class SongReaderXml : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !melody && !SpellController.IsSpellReady || Input.GetKeyDown(KeyCode.JoystickButton5) && !melody && !SpellController.IsSpellReady || Input.GetKeyDown(KeyCode.JoystickButton7) && !melody && !SpellController.IsSpellReady)
+        if (Input.GetKeyDown(KeyCode.E) && !melody && !SpellController.IsSpellReady || Input.GetKeyDown(KeyCode.JoystickButton5) && !melody && !SpellController.IsSpellReady)
         {
             Debug.Log("start melody");
             audioData.Play(0);

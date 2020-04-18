@@ -11,6 +11,8 @@ TagManager:
   - Scrolling
   - Success
   - Miss
+  - Damage
+  - Boss
   layers:
   - Default
   - TransparentFX

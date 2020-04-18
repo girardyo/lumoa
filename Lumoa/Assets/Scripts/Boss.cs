@@ -53,18 +53,8 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
+
             if (BossMode.Instance.rageMode)
-            {
-                BossMode.Instance.rageMode = false;
-                nombrePlume = rageOffNombrePlume;
-                anglePlume = rageOffAnglePlume;
-                StalaAttack = false;
-                timerAttaqueMax = rageOffTimerAttack;
-                Debug.Log("ragemode = "+ BossMode.Instance.rageMode);
-            }
-            else
             {
                 BossMode.Instance.rageMode = true;
                 nombrePlume = rageOnNombrePlume;
@@ -73,7 +63,7 @@ public class Boss : MonoBehaviour
                 timerAttaqueMax = rageOnTimerAttack;
                 Debug.Log("ragemode = " + BossMode.Instance.rageMode);
             }
-        }
+       
         transform.LookAt(new Vector3(joueur.transform.position.x, transform.position.y, joueur.transform.position.z));
         lifeTimeBlizzard = lifeTimeBlizzard + Time.deltaTime;
         lifeTimeConeGlace = lifeTimeConeGlace + Time.deltaTime;

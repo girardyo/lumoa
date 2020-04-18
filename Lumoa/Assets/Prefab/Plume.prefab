@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 1268953469382263135}
   - component: {fileID: 3833979788010044896}
   - component: {fileID: -1053018483018349500}
+  - component: {fileID: -2970849817266525678}
   m_Layer: 0
   m_Name: Plume
-  m_TagString: Untagged
+  m_TagString: Damage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,5 +235,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3ec414b61350141b2694855d7096dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
   lifeTimeMax: 5
+--- !u!65 &-2970849817266525678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5551368477282247230}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 27.376524, y: 12.577433, z: 18.88966}
+  m_Center: {x: 0, y: 6.288716, z: 0.0000010942381}
