@@ -36,8 +36,6 @@ public class Boss : MonoBehaviour
     public float rageOffTimerAttack = 5f;
     public float rageOnTimerAttack = 2f;
 
-
-
     public List<AudioSource> audioSources;
 
 
@@ -53,7 +51,8 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!BossMode.Instance.isDead)
+        {
             if (BossMode.Instance.rageMode)
             {
                 BossMode.Instance.rageMode = true;
@@ -63,75 +62,77 @@ public class Boss : MonoBehaviour
                 timerAttaqueMax = rageOnTimerAttack;
                 Debug.Log("ragemode = " + BossMode.Instance.rageMode);
             }
-       
-        transform.LookAt(new Vector3(joueur.transform.position.x, transform.position.y, joueur.transform.position.z));
-        lifeTimeBlizzard = lifeTimeBlizzard + Time.deltaTime;
-        lifeTimeConeGlace = lifeTimeConeGlace + Time.deltaTime;
-        if (StalaAttack)
-        {
-            AttaqueStalagmite();
-        }
-        if (timerAttaque < timerAttaqueMax)
-        {
-            timerAttaque = timerAttaque + Time.deltaTime;
-        }
-        else
-        {
-            timerAttaque = 0;
-            switch (Random.Range(1, 7))
+
+            transform.LookAt(new Vector3(joueur.transform.position.x, transform.position.y, joueur.transform.position.z));
+            lifeTimeBlizzard = lifeTimeBlizzard + Time.deltaTime;
+            lifeTimeConeGlace = lifeTimeConeGlace + Time.deltaTime;
+            if (StalaAttack)
             {
-                case 1:
-                    if (lifeTimeBlizzard >= 10f)
-                    {
-                        AttaqueBlizzard();
-                        lifeTimeBlizzard = 0;
-                        Debug.Log("Attaque 4");
-                    }
-                    else
-                    {
+                AttaqueStalagmite();
+            }
+            if (timerAttaque < timerAttaqueMax)
+            {
+                timerAttaque = timerAttaque + Time.deltaTime;
+            }
+            else
+            {
+                timerAttaque = 0;
+                switch (Random.Range(1, 7))
+                {
+                    case 1:
+                        if (lifeTimeBlizzard >= 10f)
+                        {
+                            AttaqueBlizzard();
+                            lifeTimeBlizzard = 0;
+                            Debug.Log("Attaque 4");
+                        }
+                        else
+                        {
+                            AttaquePlume();
+                        }
+                        break;
+                    case 2:
+                        AnimManager.LaunchAnim(animator, "AttaqueMainSol");
+                        if (!StalaAttack)
+                        {
+                            StalaAttack = true;
+                            Debug.Log("Attaque 2");
+                        }
+                        else
+                        {
+                            AttaquePlume();
+                        }
+                        break;
+                    case 3:
                         AttaquePlume();
-                    }
-                    break;
-                case 2:
-                    AnimManager.LaunchAnim(animator, "AttaqueMainSol");
-                    if (!StalaAttack)
-                    {
-                        StalaAttack = true;
-                        Debug.Log("Attaque 2");
-                    }
-                    else
-                    {
-                        AttaquePlume();
-                    }
-                    break;
-                case 3:
-                    AttaquePlume();
-                    Debug.Log("Attaque 3");
-                    break;
-                case 4:
-                    if (lifeTimeConeGlace >= 10f)
-                    {
-                        AttaqueConeGlace();
-                        lifeTimeConeGlace = 0;
-                        Debug.Log("Attaque 4");
-                    }
-                    else
-                    {
-                        AttaquePlume();
-                    }
-                    break;
-                case 5:
-                    AttaqueLaser();
-                    Debug.Log("Attaque 5");
-                    break;
+                        Debug.Log("Attaque 3");
+                        break;
+                    case 4:
+                        if (lifeTimeConeGlace >= 10f)
+                        {
+                            AttaqueConeGlace();
+                            lifeTimeConeGlace = 0;
+                            Debug.Log("Attaque 4");
+                        }
+                        else
+                        {
+                            AttaquePlume();
+                        }
+                        break;
+                    case 5:
+                        AttaqueLaser();
+                        Debug.Log("Attaque 5");
+                        break;
 
-                case 6:
-                    StartCoroutine("AttaqueStalactite");
-                    Debug.Log("Attaque 6");
-                    break;
+                    case 6:
+                        StartCoroutine("AttaqueStalactite");
+                        Debug.Log("Attaque 6");
+                        break;
 
+                }
             }
         }
+            
     }
 
     void AttaqueBlizzard()

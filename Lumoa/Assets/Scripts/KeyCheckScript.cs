@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +16,12 @@ public class KeyCheckScript : MonoBehaviour
 
     public static bool endMelody = true;
 
+    public TextMeshProUGUI textMeshProUGUI;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -95,6 +97,7 @@ public class KeyCheckScript : MonoBehaviour
             keys[0].GetComponent<KeyScript>().IsKeyMissed = true;
             keys.Remove(keys[0]);
         }
+        textMeshProUGUI.text = CompletionAverage.ToString()+" %";
     }
 
     private float CompletionAverage

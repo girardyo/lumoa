@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class BossLifeScript : LifeInfo
 {
-    private bool isPlayerDead = false;
-
+    public Animator animator;
     public GameObject crack1; 
     public GameObject crack2;
 
@@ -30,6 +29,8 @@ public class BossLifeScript : LifeInfo
             crack2.SetActive(true);
             BossMode.Instance.rageMode = true;
         }
+        if (CurrentLife == 0)
+            Death();
     }
 
 
@@ -38,13 +39,9 @@ public class BossLifeScript : LifeInfo
     public override void Death()
     {
         Debug.Log("DEATH");
-        isPlayerDead = true;
+        BossMode.Instance.isDead = true;
+        AnimManager.LaunchAnim(animator, "Death");
     }
 
 
-
-    public bool getIsPlayerDead()
-    {
-        return isPlayerDead;
-    }
 }
