@@ -13,13 +13,12 @@ public class SongReaderXml : MonoBehaviour
     static public bool melody;
     private float T;
 
-    public GameObject projectile;
-    public AudioSource audioData;
+    AudioSource audioData;
 
-    public Sprite circle;
-    public Sprite triangle;
-    public Sprite rectangle;
-    public Sprite cross;
+    public Sprite B_Key;
+    public Sprite Y_Key;
+    public Sprite X_Key;
+    public Sprite A_Key;
 
     public GameObject panel;
 
@@ -53,18 +52,9 @@ public class SongReaderXml : MonoBehaviour
             }
             else if (!audioData.isPlaying)
             {
-                //melody = false;
-                //T = 0;
-                ////TODO envoie touche
-                //Debug.Log(listInputTemp[0]);
-                //listInputTemp.RemoveAt(0);
-                //listTimecodeTemp.RemoveAt(0);
-
-                //if(listInputTemp.Count == 0)
-                //{
-                //    melody = false;
-                //    T = 0;
-                //}
+                melody = false;
+                Debug.Log("end of music");
+                T = 0;
             }
         }
     }
@@ -95,15 +85,29 @@ public class SongReaderXml : MonoBehaviour
     {
         GameObject lGo = new GameObject(pInput, typeof(Image));
         Sprite lSprite;
+        float lOffsetY;
 
-        if (pInput == "circle")
-            lSprite = circle;
-        else if (pInput == "rectangle")
-            lSprite = rectangle;
-        else if (pInput == "triangle")
-            lSprite = triangle;
-        else if (pInput == "cross")
-            lSprite = cross;
+        if (pInput == "B")
+        {
+            lSprite = B_Key;
+            lOffsetY = -1;
+        }
+
+        else if (pInput == "X")
+        {
+            lSprite = X_Key;
+            lOffsetY = 5;
+        }
+        else if (pInput == "Y")
+        {
+            lSprite = Y_Key;
+            lOffsetY = 12;
+        }
+        else if (pInput == "A")
+        {
+            lSprite = A_Key;
+            lOffsetY = -8;
+        }
         else
             return;
 
@@ -112,9 +116,10 @@ public class SongReaderXml : MonoBehaviour
 
         lGo.transform.SetParent(panel.transform);
         lGo.AddComponent<KeyScript>();
-        lGo.GetComponent<KeyScript>().xMultiplier = pTimecode;
+        lGo.GetComponent<KeyScript>().songPosition = pTimecode;
 
+        lGo.GetComponent<KeyScript>().offsetY = lOffsetY;
+        lGo.transform.localScale /= 2.5f;
         KeyCheckScript.keys.Add(lGo);
     }
-
 }
