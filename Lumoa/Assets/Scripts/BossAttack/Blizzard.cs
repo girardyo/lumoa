@@ -33,7 +33,7 @@ public class Blizzard : MonoBehaviour
         {
             if (playerInside)
             {
-                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().setMoveSpeed(5.0f);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().speed = 120;
             }
             Destroy(gameObject);
         }
@@ -43,7 +43,7 @@ public class Blizzard : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().setMoveSpeed(2.0f);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().speed = 60;
             playerInside = true;
         }
     }
@@ -59,7 +59,7 @@ public class Blizzard : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.gameObject.GetComponent<Player>().setMoveSpeed(5.0f);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().speed = 120;
             playerInside = false;
         }
     }

@@ -42,6 +42,7 @@ public class Boss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        BossMode.Instance.notAggro = true;
         if (joueur == null)
         {
             joueur = GameObject.FindGameObjectWithTag("Player");
@@ -51,7 +52,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!BossMode.Instance.isDead)
+        if (!BossMode.Instance.isDead && !BossMode.Instance.notAggro)
         {
             if (BossMode.Instance.rageMode)
             {
@@ -173,6 +174,8 @@ public class Boss : MonoBehaviour
     {
 
         Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+        GameObject cone = Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
+        cone.transform.eulerAngles = new Vector3(90, 0, -90);
         if (BossMode.Instance.rageMode)
         {
             GameObject coneInstance = Instantiate(coneGlace, new Vector3(transform.position.x, 0.078f, transform.position.z), transform.rotation);
