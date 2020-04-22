@@ -8,6 +8,7 @@ public class BossLifeScript : LifeInfo
     public Animator animator;
     public GameObject crack1; 
     public GameObject crack2;
+    public GameObject crack3;
 
     private void Start()
     {
@@ -30,7 +31,11 @@ public class BossLifeScript : LifeInfo
             BossMode.Instance.rageMode = true;
         }
         if (CurrentLife == 0)
+        {
+            crack3.SetActive(true);
             Death();
+        }
+
     }
 
 

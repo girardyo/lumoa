@@ -23,7 +23,6 @@ public class KeyScript : MonoBehaviour
 
         transform.localPosition = new Vector3(CheckPosition.x * songPosition / 5, offsetY, 0);
         speed = DistanceBetween(transform.position) / songPosition;
-        Debug.Log(DistanceBetween(transform.position));
         width = GetComponent<RectTransform>().sizeDelta.x * GetComponent<RectTransform>().lossyScale.x;
 
         rotationSmooth = 1.5f;

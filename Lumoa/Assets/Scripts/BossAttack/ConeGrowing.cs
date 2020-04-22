@@ -30,7 +30,6 @@ public class ConeGrowing : MonoBehaviour
     {
         if (exit && other.tag == "Player")
         {
-            Debug.Log("Cube exiting Cone");
             playerInside = false;
             other.gameObject.GetComponent<Player>().setBool(false);
             other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;

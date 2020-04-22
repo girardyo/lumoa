@@ -29,7 +29,6 @@ public class Laser : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             //Perte d'un point de vie au joueur
-            Debug.Log("Touche le joueur");
         }
     }
 }

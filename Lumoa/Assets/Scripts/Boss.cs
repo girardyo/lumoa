@@ -84,7 +84,6 @@ public class Boss : MonoBehaviour
                         {
                             AttaqueBlizzard();
                             lifeTimeBlizzard = 0;
-                            Debug.Log("Attaque 4");
                         }
                         else
                         {
@@ -96,7 +95,6 @@ public class Boss : MonoBehaviour
                         if (!StalaAttack)
                         {
                             StalaAttack = true;
-                            Debug.Log("Attaque 2");
                         }
                         else
                         {
@@ -105,14 +103,12 @@ public class Boss : MonoBehaviour
                         break;
                     case 3:
                         AttaquePlume();
-                        Debug.Log("Attaque 3");
                         break;
                     case 4:
                         if (lifeTimeConeGlace >= 10f)
                         {
                             AttaqueConeGlace();
                             lifeTimeConeGlace = 0;
-                            Debug.Log("Attaque 4");
                         }
                         else
                         {
@@ -121,12 +117,10 @@ public class Boss : MonoBehaviour
                         break;
                     case 5:
                         AttaqueLaser();
-                        Debug.Log("Attaque 5");
                         break;
 
                     case 6:
                         StartCoroutine("AttaqueStalactite");
-                        Debug.Log("Attaque 6");
                         break;
 
                 }
@@ -214,7 +208,6 @@ public class Boss : MonoBehaviour
     {
         AnimManager.LaunchAnim(animator, "Laser");
         yield return new WaitForSeconds(1.55f);
-        Debug.Log("laser :" + transform.forward.x);
         Instantiate(laser, new Vector3(transform.position.x+(transform.forward.x*5), 0, transform.position.z + (transform.forward.z*5)), transform.rotation);
 
     }

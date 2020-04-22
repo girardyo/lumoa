@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Knockback")
         {
-            Debug.Log("touched");
             var a = GameObject.FindGameObjectWithTag("Knockback").transform.position;
             var b = GameObject.FindGameObjectWithTag("Player").transform.position;
             var d = b - a;
@@ -117,7 +116,6 @@ public class Player : MonoBehaviour
             if (rigibody.velocity.magnitude > .5f)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rigibody.velocity), Time.deltaTime * speedRotation);
-                Debug.Log("walk");
 
                 AnimManager.LaunchAnim(animator, "Walk");
             }
@@ -131,10 +129,12 @@ public class Player : MonoBehaviour
                 AnimManager.LaunchAnim(animator, "Idle_breathing");
             }
 
-            if (Input.GetKeyDown(KeyCode.JoystickButton7) || Input.GetKeyDown(KeyCode.E) && SpellController.IsSpellReady)
+            if (Input.GetKeyDown(KeyCode.JoystickButton7) && SpellController.IsSpellReady|| Input.GetKeyDown(KeyCode.E) && SpellController.IsSpellReady)
             {
                 GameObject proj = Instantiate(Proj);
                 proj.transform.position = projPos.position;
+
+                SpellController.IsSpellReady = false;
           
 
 

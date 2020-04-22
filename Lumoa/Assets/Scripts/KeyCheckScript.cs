@@ -27,6 +27,8 @@ public class KeyCheckScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(CompletionAverage.ToString());
+
         if (keys.Count > 0)
         {
             endMelody = false;
@@ -35,10 +37,13 @@ public class KeyCheckScript : MonoBehaviour
         else if (transform.parent.childCount == 1)
         {
             endMelody = true;
+            Debug.Log("Melody ended");
 
             if (CompletionAverage >= 100 && endMelody)
             {
                 ResetKeyCheckerTrue();
+
+                textMeshProUGUI.color = Color.green;
             }
 
             /*
@@ -102,23 +107,24 @@ public class KeyCheckScript : MonoBehaviour
 
     private float CompletionAverage
     {
-        get => (float)CompletionCount / MaxCompletionCount;
+        get => (float)CompletionCount / MaxCompletionCount *100;
     }
 
     public static void ResetKeyChecker()
     {
         Debug.Log("reset");
+
         CompletionCount = 0;
-        SpellController.IsSpellReady = false;
         SongReaderXml.melody = false;
         keys.Clear();
     }
 
     public static void ResetKeyCheckerTrue()
     {
-        Debug.Log("reset");
+        Debug.Log("reset + spell ready");
         CompletionCount = 0;
         SpellController.IsSpellReady = true;
+        Debug.Log(SpellController.IsSpellReady);
         SongReaderXml.melody = true;
         keys.Clear();
 

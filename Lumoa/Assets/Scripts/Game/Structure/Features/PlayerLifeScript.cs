@@ -28,7 +28,10 @@ public class PlayerLifeScript : LifeInfo
     {
         if (other.gameObject.tag == "Damage")
         {
-            LifeManager.UpdateLife(-1, this);
+            if(CurrentLife >=1)
+            {
+                LifeManager.UpdateLife(-1, this);
+            }
             Debug.Log("Current life" + CurrentLife);
             rectTransform.localScale = new Vector3((float)CurrentLife / 10f, 1f, 1f);
 
@@ -41,6 +44,7 @@ public class PlayerLifeScript : LifeInfo
     {
         Debug.Log("DEATH");
         isPlayerDead = true;
+        Menu.IsGameEnded = true;
     }
 
 

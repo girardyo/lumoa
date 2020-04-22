@@ -41,7 +41,6 @@ public class Blizzard : MonoBehaviour
 
         private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.tag);
         if (other.tag == "Player")
         {
             other.gameObject.GetComponent<Player>().setMoveSpeed(2.0f);
