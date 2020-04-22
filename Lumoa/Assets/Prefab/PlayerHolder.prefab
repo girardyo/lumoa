@@ -121,7 +121,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.0019022108, y: -0.035401206, z: -0.0039561726}
+  m_ConnectedAnchor: {x: -0.00190221, y: -0.035401203, z: -0.0039561554}
   m_UseSpring: 1
   m_Spring:
     spring: 10
@@ -1568,7 +1568,7 @@ Animator:
   m_GameObject: {fileID: 8136064865172934504}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0f2a89a26e3842748a54a97224405b88, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5bce391592b58ad479e9530d6548db23, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
